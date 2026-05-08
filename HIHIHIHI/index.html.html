@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Très importante</title>
+
+<style>
+
+/* =========================
+   POLICE
+========================= */
+
+@font-face{
+  font-family:"RockSalt";
+  src:url("RockSalt-Regular.ttf");
+}
+
+/* =========================
+   PAGE
+========================= */
+
+body{
+  margin:0;
+  height:110vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  overflow:hidden;
+
+  background:#ffffff;
+
+  font-family:"RockSalt", cursive;
+}
+
+/* =========================
+   PAPIER
+========================= */
+
+.container{
+  position:relative;
+}
+
+.container img{
+  width:1000px;
+
+  display:block;
+
+  transform:rotate(-3deg);
+
+  filter:drop-shadow(
+    0 15px 25px rgba(0,0,0,0.25)
+  );
+}
+
+/* =========================
+   CONTENU SUR LE PAPIER
+========================= */
+
+.content{
+  position:absolute;
+
+  top:50%;
+  left:50%;
+
+  transform:
+  translate(-50%, -50%)
+  rotate(-3deg);
+
+  text-align:center;
+
+  width:100%;
+}
+
+/* =========================
+   TITRE
+========================= */
+
+h1{
+  font-size:40px;
+
+  color:#343434;
+
+  margin-bottom:60px;
+}
+
+/* =========================
+   OPTIONS
+========================= */
+
+.options{
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:100px;
+}
+
+/* =========================
+   CHOIX
+========================= */
+
+.choice{
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  font-size:28px;
+}
+
+/* =========================
+   CASES
+========================= */
+
+.box{
+  width:25px;
+  height:25px;
+  border:2px solid #343434;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  cursor:pointer;
+
+  overflow:hidden;
+}
+
+/* =========================
+   CHECK
+========================= */
+
+#check{
+  visibility:hidden;
+
+  font-size:30px;
+
+  color:#ff4d88;
+}
+
+/* =========================
+   NON QUI FUIT
+========================= */
+
+#noBox{
+  transition:transform 0.1s ease;
+}
+
+/* =========================
+   BISOUS
+========================= */
+
+.kiss{
+  position:absolute;
+
+  font-size:35px;
+
+  pointer-events:none;
+
+  animation:floatUp 2s linear forwards;
+}
+
+@keyframes floatUp{
+
+  0%{
+    transform:
+    translateY(0)
+    scale(0.5);
+
+    opacity:1;
+  }
+
+  100%{
+    transform:
+    translateY(-200px)
+    scale(1.5);
+
+    opacity:0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- IMAGE -->
+  <img src="photo/8964647.png">
+
+  <!-- CONTENU -->
+  <div class="content">
+
+    <h1>
+      Tu veux sortir avec moi ?
+    </h1>
+
+    <div class="options">
+
+      <!-- OUI -->
+      <div class="choice">
+
+        <div
+          class="box"
+          onclick="yesAnswer()"
+        >
+          <span id="check">✔</span>
+        </div>
+
+        OUI
+
+      </div>
+
+      <!-- NON -->
+      <div
+        class="choice"
+        id="noBox"
+      >
+
+        <div class="box"></div>
+
+        NON
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+/* =========================
+   NON QUI FUIT
+========================= */
+
+const noBox =
+document.getElementById("noBox");
+
+const container =
+document.querySelector(".container");
+
+container.addEventListener(
+  "mousemove",
+  (e)=>{
+
+    const rect =
+    noBox.getBoundingClientRect();
+
+    const dist =
+    Math.hypot(
+
+      e.clientX -
+      (rect.left + rect.width/2),
+
+      e.clientY -
+      (rect.top + rect.height/2)
+    );
+
+    if(dist < 150){
+
+      const x =
+      (Math.random()-0.5)*450;
+
+      const y =
+      (Math.random()-0.5)*450;
+
+      noBox.style.transform =
+      `translate(${x}px, ${y}px)`;
+    }
+});
+
+/* =========================
+   OUI
+========================= */
+
+function yesAnswer(){
+
+  /* coche la case */
+  const check =
+  document.getElementById("check");
+
+  check.style.visibility =
+  "visible";
+
+  /* bisous */
+  for(let i=0; i<30; i++){
+
+    const kiss =
+    document.createElement("div");
+
+    kiss.innerHTML = "💋";
+
+    kiss.classList.add("kiss");
+
+    kiss.style.left =
+    Math.random() *
+    window.innerWidth + "px";
+
+    kiss.style.top =
+    Math.random() *
+    window.innerHeight + "px";
+
+    document.body.appendChild(kiss);
+
+    setTimeout(()=>{
+      kiss.remove();
+    },2000);
+  }
+}
+
+</script>
+
+</body>
+</html>
